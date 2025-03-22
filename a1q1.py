@@ -36,7 +36,7 @@ def z_algo(pattern, text):
     suffix_check = suffix_p + "$" + suffix_t
     z2 = z_array(suffix_check)
     
-    near_match_indices = []
+    replace_char = []
     
     for i in range(n - m + 1):
         prefix_len = z1[i + m + 1]
@@ -45,14 +45,39 @@ def z_algo(pattern, text):
         if prefix_len + suffix_len == (m - 1):
             print("i = ", i, "pref = ", prefix_len)
             print("i = ", i, "suff = ", suffix_len)
-            near_match_indices.append(i)
+            replace_char.append(i)
     
-    print(near_match_indices)
+    print(replace_char)
+
+    insert_char = []
+
+    for i in range(n - m + 2):
+        prefix_len = z1[i + m + 1]
+        suffix_len = z2[n - i + 2]
+
+        if prefix_len + suffix_len == (m - 1):
+            print("i = ", i, "pref = ", prefix_len)
+            print("i = ", i, "suff = ", suffix_len)
+            insert_char.append(i)
     
+    print(insert_char)
+
+    delete_char = []
+
+    for i in range(n - m):
+        prefix_len = z1[i + m + 1]
+        suffix_len = z2[n - i]
+
+        if prefix_len + suffix_len == m: 
+            print("i = ", i, "pref = ", prefix_len)
+            print("i = ", i, "suff = ", suffix_len)
+            delete_char.append(i)
+    
+    print(delete_char)
     # res = []
     # for i in range(len(new_text)):
     #     if z[i] == len(pattern):
     #         res.append(i - (len(pattern)+1)) # +1 for delimiter "$"
     
     # return res
-print(z_algo("abcd", "xbcdaxcdabxdabcx"))
+print(z_algo("abcd", "axbcdabxcdabcxd"))
