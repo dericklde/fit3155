@@ -37,8 +37,17 @@ def z_algo(pattern, text):
     z2 = z_array(suffix_check)
     
     near_match_indices = []
+    
+    for i in range(n - m + 1):
+        prefix_len = z1[i + m + 1]
+        suffix_len = z2[n - i + 1]
 
-    # for i in range(n - m + 1):
+        if prefix_len + suffix_len == (m - 1):
+            print("i = ", i, "pref = ", prefix_len)
+            print("i = ", i, "suff = ", suffix_len)
+            near_match_indices.append(i)
+    
+    print(near_match_indices)
     
     # res = []
     # for i in range(len(new_text)):
