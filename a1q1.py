@@ -37,14 +37,14 @@ def z_algo(pattern, text):
     z2 = z_array(suffix_check)
     
     # exact match
-    print("z1: ",z1)
+    # print("z1: ",z1)
     exact_match = []
 
     for i in range(len(z2)):
         if (z2[i] == m):
             exact_match.append(i-m-1) # subtract pattern and '$' from z array
     
-    print(exact_match)
+    # print(exact_match)
 
     # near exact match cases
     replace_char = []
@@ -118,8 +118,28 @@ def z_algo(pattern, text):
     
     # print(swap_char)
 
+    # collating results
+    list_of_near_exacts = [replace_char,swap_char,insert_char,delete_char]
+    res = [None] * n
+
+    for index in exact_match:
+        res[index] = 0
+    
+    print("after exact", res)
+    for lst in list_of_near_exacts:
+        for index in lst:
+            if res[index] != 0:
+                res[index] = 1
+        print(res)
+    
+    print("after near exact", res)
+    for i in range(len(res)):
+        if res[i] != None:
+            print(i+1, res[i])
+
+    return None
 
 
-print(z_algo("abcd", "abcdbacdacbdabdcabcd"))
-             # abcd # bacd acbd abdc dbca - forward
-             # dcba # acbd cdba dbca dcab - reverse
+z_algo("abcd", "abcd bacd acbd abdc abcd")
+    # abcd # bacd acbd abdc dbca - forward
+    # dcba # acbd cdba dbca dcab - reverse
