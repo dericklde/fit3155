@@ -40,8 +40,8 @@ def z_algo(pattern, text):
     # print("z1: ",z1)
     exact_match = []
 
-    for i in range(len(z2)):
-        if (z2[i] == m):
+    for i in range(len(z1)):
+        if (z1[i] == m):
             exact_match.append(i-m-1) # subtract pattern and '$' from z array
     
     # print(exact_match)
@@ -63,12 +63,13 @@ def z_algo(pattern, text):
     insert_char = []
 
     for i in range(n - m + 2):
+        print("i", i, "pref", prefix_len, "suff", suffix_len)  # debugging purpose pls delete when done
         prefix_len = z1[i + m + 1]
         suffix_len = z2[n - i + 2]
 
         if prefix_len + suffix_len == (m - 1):
-            # print("i = ", i, "pref = ", prefix_len)
-            # print("i = ", i, "suff = ", suffix_len)
+            print("i = ", i, "pref = ", prefix_len)
+            print("i = ", i, "suff = ", suffix_len)
             insert_char.append(i)
     
     # print(insert_char)
@@ -119,20 +120,23 @@ def z_algo(pattern, text):
     # print(swap_char)
 
     # collating results
+    print("replace_char:", replace_char)
+    print("swap_char:", swap_char)
+    print("insert_char:", insert_char)
+    print("delete_char:", delete_char)
+    print("exact match:", exact_match)
+    print("z array:", z1)
     list_of_near_exacts = [replace_char,swap_char,insert_char,delete_char]
     res = [None] * n
 
     for index in exact_match:
         res[index] = 0
     
-    print("after exact", res)
     for lst in list_of_near_exacts:
         for index in lst:
             if res[index] != 0:
                 res[index] = 1
-        print(res)
-    
-    print("after near exact", res)
+
     for i in range(len(res)):
         if res[i] != None:
             print(i+1, res[i])
@@ -140,6 +144,6 @@ def z_algo(pattern, text):
     return None
 
 
-z_algo("abcd", "abcd bacd acbd abdc abcd")
+z_algo("abcd", "abdcabxdcyabcdzabxcd")
     # abcd # bacd acbd abdc dbca - forward
     # dcba # acbd cdba dbca dcab - reverse
