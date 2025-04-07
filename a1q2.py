@@ -1,3 +1,23 @@
+# naive pattern matching algorithm (code taken from ChatGPT)
+
+def naive_pattern_match(text, pattern):
+    matches = []
+    n = len(text)
+    m = len(pattern)
+
+    for i in range(n - m + 1):  # slide pattern over text
+        match = True
+        for j in range(m):  # check character by character
+            if text[i + j] != pattern[j]:
+                match = False
+                break
+        if match:
+            matches.append(i)  # store the starting index of match
+    return matches
+
+
+# basic boyer moore algorithm
+
 def bad_char(pattern):
     # preprocessing bad char rule
     n = len(pattern)
@@ -8,10 +28,10 @@ def bad_char(pattern):
         table[index] = n - i - 1
     return table
 
-def gsuff_case1(pattern):
+def good_suffix(pattern):
     # preprocessing good suffix rule
     m = len(pattern)
-    shift = [0] * (m + 1)
+    shift = [0] * (m + 1) # + 1 to account for no match case    
 
     i = m
     j = m + 1
@@ -27,20 +47,16 @@ def gsuff_case1(pattern):
         j -= 1
         bpos[i] = j
 
-    def gsuff_case2(shift, bpos):
-        j = bpos[0]
-        for i in range(m):
-            if shift[i] == 0:
-                shift[i] = j
-            if i == j:
-                j = bpos[j]    
-        return shift, bpos
-    
-    shift, bpos = gsuff_case2(shift, bpos)
+    j = bpos[0]
+    for i in range(m+1): # + 1 to cover full range of shift and bpos
+        if shift[i] == 0:
+            shift[i] = j
+        if i == j:
+            j = bpos[j]    
 
     return shift, bpos
 
-gsuff_case1("abbabab")
+good_suffix("abbabab")
 
 
 
