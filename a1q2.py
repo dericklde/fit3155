@@ -16,17 +16,7 @@ def naive_pattern_match(text, pattern):
     return matches
 
 
-# basic boyer moore algorithm
-
-def bad_char(pattern):
-    # preprocessing bad char rule
-    n = len(pattern)
-    table = [n] * 256 # char not in pattern shift n times
-
-    for i in range(n-1):
-        index = ord(pattern[i]) # ord() returns ASCII value of char
-        table[index] = n - i - 1
-    return table
+# optimised boyer moore algorithm for binary strings
 
 def good_suffix(pattern):
     # preprocessing good suffix rule
@@ -47,6 +37,7 @@ def good_suffix(pattern):
         j -= 1
         bpos[i] = j
 
+    # matched prefix shift
     j = bpos[0]
     for i in range(m+1): # + 1 to cover full range of shift and bpos
         if shift[i] == 0:
@@ -56,7 +47,9 @@ def good_suffix(pattern):
 
     return shift, bpos
 
-good_suffix("abbabab")
+
+good_suffix("abcdabc")
+
 
 
 
