@@ -45,11 +45,32 @@ def good_suffix(pattern):
         if i == j:
             j = bpos[j]    
 
-    return shift, bpos
+    return shift
 
+# search for pattern in text
+def boyer_moore(text, pattern):
+    m = len(pattern)
+    n = len(text)
+    res = []
 
-good_suffix("abcdabc")
+    shift = good_suffix(pattern)
 
+    k = m
+    while k <= n:
+        i = m
+        h = k
+        while i > 0 and pattern[i-1] == text[h-1]:
+            i = i - 1
+            h = h - 1
+        if i == 0:
+            res.append(h)
+            k = k + m - shift[i]
+        else:
+            k += shift[i]
+
+    return res 
+
+print(boyer_moore('0011010101111001001101100','010'))
 
 
 
