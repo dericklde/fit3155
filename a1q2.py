@@ -79,8 +79,35 @@ def boyer_moore(text, pattern):
             start = m
             stop = -1
     
+    print("Number of comparisons:", count)
     return res
 
+import sys
+
+# this function reads a file and returns its content as a single string
+def read_file(file_path: str) -> str:
+    f = open(file_path, 'r')
+    res = f.read().strip()  # remove spaces and line breaks 
+    f.close()
+    return res
+
+# this function writes the match results to the output file a1q2
+def write_output(res):
+    output_file = 'output_a1q2.txt'
+    f = open(output_file, 'w')
+    for index in res:
+        f.write(str(index + 1) + '\n')  # convert to 1-indexed
+    f.close()
+
+if __name__ == '__main__':
+    # retrieve file paths from command line arguments
+    _, filename1, filename2 = sys.argv
+
+    text = read_file(filename1)
+    pattern = read_file(filename2)
+
+    res = boyer_moore(text, pattern)
+    write_output(res)
 
 
 

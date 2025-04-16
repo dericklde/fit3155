@@ -31,7 +31,7 @@ def z_array(text):
     return Z
 
 # Z algorithm altered for near-exact pattern matching under DL-distance <= 1
-def z_algo(pattern, text):
+def z_algo(text, pattern):
     n = len(text)
     m = len(pattern)
 
@@ -132,13 +132,35 @@ def z_algo(pattern, text):
             if res[index] != 0: # to make sure we don't replace exact match case
                 res[index] = 1
 
-    # go over all chars once to output values
-    for i in range(len(res)):
-        if res[i] != None:
-            print(i+1, res[i])
-
     return res
 
+import sys
+
+# this function reads a file and returns its content as a single string
+def read_file(file_path: str) -> str:
+    f = open(file_path, 'r')
+    res = f.read().strip()  # remove spaces and line breaks 
+    f.close()
+    return res
+
+# this function writes the match results to the output file a1q1
+def write_output(res):
+    output_file = 'output_a1q1.txt'
+    f = open(output_file, 'w')
+    for i in range(len(res)):
+        if res[i] != None:
+            f.write(str((i + 1)) + ' ' + str(res[i]) + '\n')  # convert to 1-indexed
+    f.close()
+
+if __name__ == '__main__':
+    # retrieve file paths from command line arguments
+    _, filename1, filename2 = sys.argv
+
+    text = read_file(filename1)
+    pattern = read_file(filename2)
+
+    res = z_algo(text, pattern)
+    write_output(res)
 
 
 
