@@ -12,11 +12,12 @@ def good_suffix(pattern):
 
     i = m
     j = m + 1
-    bpos = [0] * (m + 1)
+    bpos = [0] * (m + 1)    # array to track border position (border = index where suffix matches prefix)
     bpos[i] = j
 
+    # check for border position one element at a time
     while i > 0:
-        while j <= m and pattern[i-1] != pattern[j-1]:
+        while j <= m and pattern[i-1] != pattern[j-1]:  
             if (shift[j] == 0):
                 shift[j] = j-i
             j = bpos[j]
@@ -25,11 +26,11 @@ def good_suffix(pattern):
         bpos[i] = j
 
     # matched prefix shift
-    j = bpos[0]
-    for i in range(m+1): # + 1 to cover full range of shift and bpos
-        if shift[i] == 0:
+    j = bpos[0]             # bpos[0] to see and get full string prefix as suffix
+    for i in range(m+1):    # + 1 to cover full range of shift and bpos
+        if shift[i] == 0:   # if there is not a shift as element already
             shift[i] = j
-        if i == j:
+        if i == j:          # if we reach i == j, we cannot set set shift[i] = j anymore 
             j = bpos[j]    
 
     return shift
@@ -39,18 +40,18 @@ def boyer_moore(text, pattern):
     m = len(pattern)
     n = len(text)
     
-    res = []
-    count = 0
+    res = []    # final result
+    count = 0   # counter for comparison
     
-    shift = good_suffix(pattern)
+    shift = good_suffix(pattern)    # shift array for good suffix and matched prefix
 
     # initial start and stop pointers (to make sure false for all j as we haven't match with pattern yet)
     start = m
     stop = -1
 
     i = 0
-    while (i <= n - m):
-        j = m - 1
+    while (i <= n - m): # to make sure end of pattern does not exceed text
+        j = m - 1   # start from the right of pattern
         while j >= 0:
             # check if j is within the matched region after shift
             if start <= j <= stop:  
@@ -67,11 +68,11 @@ def boyer_moore(text, pattern):
         else:
             i += shift[j+1]
         # calculate new start and stop pointers to skip comparisons (all pointers subtracted 1 as 0-indexed)
-        if shift[j] < m - j:
+        if shift[j] < m - j:    # good suffix with a different prefix
             p = shift[j] + j
             stop = p - 1
-            start = p - m + j 
-        elif shift[j] == m - j:
+            start = p - m + j   
+        elif shift[j] == m - j: # matched prefix as shifting start of pattern pattern[0] 
             stop = m - shift[j] - 1
             start = 0
         else: # reset it or else it would carry forward start and stop from past shift
