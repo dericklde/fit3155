@@ -63,11 +63,11 @@ def z_algo(pattern, text):
     insert_char = []
 
     for i in range(n - m + 2):
-        print("i", i, "pref", prefix_len, "suff", suffix_len)  # debugging purpose pls delete when done
         prefix_len = z1[i + m + 1]
         suffix_len = z2[n - i + 2]
-
-        if prefix_len + suffix_len == (m - 1):
+        print("i", i, "char",suffix_check[n - i + 2])
+        print("i", i, "pref", prefix_len, "suff", suffix_len)  # debugging purpose pls delete when done
+        if m - 1 <= prefix_len + suffix_len <= m:
             print("i = ", i, "pref = ", prefix_len)
             print("i = ", i, "suff = ", suffix_len)
             insert_char.append(i)
