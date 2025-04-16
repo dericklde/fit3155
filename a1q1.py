@@ -28,6 +28,10 @@ def z_algo(pattern, text):
     n = len(text)
     m = len(pattern)
 
+    # early exit conditions: empty pattern or empty text or pattern longer than text
+    if pattern == "" or text == "" or m > n:
+        return []
+
     prefix_check = pattern + "$" + text
     z1 = z_array(prefix_check)
     
@@ -65,11 +69,11 @@ def z_algo(pattern, text):
     for i in range(n - m + 2):
         prefix_len = z1[i + m + 1]
         suffix_len = z2[n - i + 2]
-        print("i", i, "char",suffix_check[n - i + 2])
-        print("i", i, "pref", prefix_len, "suff", suffix_len)  # debugging purpose pls delete when done
+        # print("i", i, "char",suffix_check[n - i + 2])
+        # print("i", i, "pref", prefix_len, "suff", suffix_len)  # debugging purpose pls delete when done
         if m - 1 <= prefix_len + suffix_len <= m:
-            print("i = ", i, "pref = ", prefix_len)
-            print("i = ", i, "suff = ", suffix_len)
+            # print("i = ", i, "pref = ", prefix_len)
+            # print("i = ", i, "suff = ", suffix_len)
             insert_char.append(i)
     
     # print(insert_char)
@@ -120,12 +124,12 @@ def z_algo(pattern, text):
     # print(swap_char)
 
     # collating results
-    print("replace_char:", replace_char)
-    print("swap_char:", swap_char)
-    print("insert_char:", insert_char)
-    print("delete_char:", delete_char)
-    print("exact match:", exact_match)
-    print("z array:", z1)
+    # print("replace_char:", replace_char)
+    # print("swap_char:", swap_char)
+    # print("insert_char:", insert_char)
+    # print("delete_char:", delete_char)
+    # print("exact match:", exact_match)
+    # print("z array:", z1)
     list_of_near_exacts = [replace_char,swap_char,insert_char,delete_char]
     res = [None] * n
 
@@ -141,9 +145,11 @@ def z_algo(pattern, text):
         if res[i] != None:
             print(i+1, res[i])
 
-    return None
+    return res
 
 
-z_algo("abcd", "abdcabxdcyabcdzabxcd")
-    # abcd # bacd acbd abdc dbca - forward
-    # dcba # acbd cdba dbca dcab - reverse
+print(z_algo("", ""))
+#     # abcd # bacd acbd abdc dbca - forward
+#     # dcba # acbd cdba dbca dcab - reverse
+
+
