@@ -1,3 +1,8 @@
+# Name: Douh Ee Leu
+# Student ID: 31841716
+
+# Z-array algorithm implemented using code from https://www.hackerearth.com/practice/algorithms/string-algorithm/z-algorithm/tutorial/
+
 # Algorithm to construct Z array 
 def z_array(text):
     n = len(text)

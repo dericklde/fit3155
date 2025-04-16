@@ -1,4 +1,10 @@
-# function to calculate good suffix shift and matched prefix shift
+# Name: Douh Ee Leu
+# Student ID: 31841716
+
+# Boyer-Moore algorithm implemented using pseudocode taken from http://web.archive.org/web/20200427070016/https://www.inf.hs-flensburg.de/lang/algorithmen/pattern/bmen.htm
+# Galil's optimisation implemented using Week 2 Lecture notes by Taylor Kearney
+
+# Function to calculate good suffix shift and matched prefix shift
 def good_suffix(pattern):
     # preprocessing good suffix rule
     m = len(pattern)
@@ -28,7 +34,7 @@ def good_suffix(pattern):
 
     return shift
 
-# optimised boyer moore algorithm for binary strings
+# Optimised boyer moore algorithm for binary strings
 def boyer_moore(text, pattern):
     m = len(pattern)
     n = len(text)
